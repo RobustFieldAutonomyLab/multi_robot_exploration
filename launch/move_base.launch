@@ -1,0 +1,13 @@
+<launch>    
+  <!--- Run AMCL -->
+  <include file="$(find turtlebot_navigation)/launch/includes/amcl/amcl.launch.xml" />
+  <!-- Define your move_base node -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam command="load" file="$(find turtlebot_navigation)/param/costmap_common_params.yaml" ns="global_costmap"/>
+     <rosparam command="load" file="$(find turtlebot_navigation)/param/costmap_common_params.yaml" ns="local_costmap"/>
+    <rosparam command="load" file="$(find turtlebot_navigation)/param/local_costmap_params.yaml"/>
+    <rosparam command="load" file="$(find turtlebot_navigation)/param/global_costmap_params.yaml"/>
+    <rosparam command="load" file="$(find turtlebot_navigation)/param/move_base_params.yaml"/>
+    <remap from="map" to="/map" />
+  </node>
+</launch>

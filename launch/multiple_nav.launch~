@@ -1,0 +1,23 @@
+<launch>
+  <param name="/use_sim_time" value="true"/>
+
+ <param name="frame_id" value="/map" />
+
+
+  <group ns="robot1">
+    <param name="tf_prefix" value="robot1_tf" />
+    <node pkg="tf" type="static_transform_publisher" name="robot1_broadcaster" args="0 0 0 0 0 0 map robot1_tf/base_footprint 10" />
+    <node pkg="tf" type="static_transform_publisher" name="robot1_odom" args="0 0 0 0 0 0 map robot1_tf/odom 10" />
+   <include file="$(find turtlebot_gazebo)/launch/move_base.launch" />
+  </group>
+
+  <group ns="robot2">
+    <param name="tf_prefix" value="robot2_tf" />
+    <node pkg="tf" type="static_transform_publisher" name="robot2_broadcaster" args="0 0 0 0 0 0 map robot2_tf/base_footprint 10" />
+    <node pkg="tf" type="static_transform_publisher" name="robot2_odom" args="0 0 0 0 0 0 map robot2_tf/odom 10" />
+    <include file="$(find turtlebot_gazebo)/launch/move_base.launch" />
+  </group>
+ 
+ 
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find turtlebot_rviz_launchers)/rviz/navigation.rviz"/>
+</launch>
